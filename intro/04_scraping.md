@@ -1,21 +1,23 @@
 !SLIDE
 # scraping #
 
+!SLIDE full-page
+![paro](paro_seal.jpg)
+
 !SLIDE
 # mechanize #
 
 !SLIDE
-![paro](paro_seal.jpg)
-
-!SLIDE
+.notes just get a page
     @@@ Ruby
     require 'mechanize'
 
-    page = Mechanize.new.get('http://google.com/')
+    page = Mechanize.new.get 'http://google.com/'
     page.links # all the links in the page
     page.forms # all the forms
 
 !SLIDE
+.notes fill out a form
     @@@ Ruby
     require 'mechanize'
 
@@ -35,28 +37,72 @@
     end
 
 !SLIDE
+.notes follow links
     @@@ Ruby
     require 'mechanize'
-    agent = WWW::Mechanize.new
+    agent = Mechanize.new
     agent.get('http://http_clients.tadalist.com/session/new')
     agent.page
     form = agent.page.forms.first
     form.password = 'secret'
     form.sumbit
+    
     # now logged in
-    agent.page.link_with(:text => 'Wish List').click
+    agent.page.link_with(
+      :text => 'Wish List').click
 
     # now on wish list page
-    agent.page.search('.edit_item').map(&:text).map(&:strip)
+    items = agent.page.search('.edit_item')
+    puts items.map(&:text).map(&:strip)
+
+!SLIDE code smaller
+.notes upload files
+    @@@ ruby
+    a = Mechanize.new
+    a.get('http://flickr.com/') do |home_page|
+      # click sign in at the home page
+      signin_page = a.click(home_page.link_with(
+        :text => /Sign In/))
+
+      # fill and submit the sign in page
+      page = signin_page.form_with(
+        :name => 'login_form') do |form|
+          form.login  = 'josephholsten'
+          form.passwd = 'secret'
+      end.submit
+
+      # Click the upload link
+      page = a.click(page.link_with(
+        :text => /Upload/))
+
+      # We want the basic upload page
+      page = a.click(upload_page.link_with(
+        :text => /basic Uploader/))
+
+      # Upload the file
+      page.form_with(:method => 'POST') do |form|
+        form.file_uploads.first.file_name = 'cute_seal.jpg'
+      end.submit
+    end
 
 !SLIDE
-## SSL support
-## back button
-## Proxies
-## file uploading
-## cookies
-## sessions
+    @@@ ruby
+    require 'mechanize'
 
+    agent = Mechanize.new
+    agent.set_proxy('localhost', '8000')
+    page = agent.get(ARGV[0])
+    puts page.body
+
+!SLIDE bullets
+
+# Why Mechanize? #
+
+* links, forms & redirects
+* store & send cookies
+* proxies
+* digest auth
+* tls client certs
 
 !SLIDE
 ## http://mechanize.rubyforge.org ##

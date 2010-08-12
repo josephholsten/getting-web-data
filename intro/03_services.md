@@ -1,6 +1,9 @@
 !SLIDE
 # services #
 
+!SLIDE full-page
+![rest seal](rest_seal.jpg)
+
 !SLIDE
 # restclient #
 
@@ -48,6 +51,15 @@
     client['/asides'].post(:body => text)
     client["/asides/1.json"].get
     client["/asides/1"].delete
+
+!SLIDE bullets
+
+# Why Rest Client? #
+
+* urls
+* verbs
+* headers
+* simple
 
 !SLIDE
 ## http://github.com/archiloque/rest-client ##

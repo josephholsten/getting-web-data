@@ -1,8 +1,4 @@
 {
     "name": "Getting Web Data",
-    "sections": [
-        {"section":"intro"},
-        {"section":"power"},
-        {"section":"endmatter"}
-    ]
+    "sections": [{"section":"intro"}]
 }
