@@ -29,3 +29,5 @@
 
 !SLIDE full-page
 ![club seal](club_seal.jpg)
+
+!SLIDE

@@ -42,7 +42,7 @@
     require 'mechanize'
     agent = Mechanize.new
     agent.get('http://http_clients.tadalist.com/session/new')
-    agent.page
+
     form = agent.page.forms.first
     form.password = 'secret'
     form.sumbit
@@ -106,3 +106,5 @@
 
 !SLIDE
 ## http://mechanize.rubyforge.org ##
+
+!SLIDE

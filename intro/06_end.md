@@ -8,6 +8,7 @@
 ## Also cool ##
 * Faraday
 * Addressable
+* Net::HTTP::Persistent
 
 !SLIDE full-page
 ![wave seal](wave_seal.jpg)
